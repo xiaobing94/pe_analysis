@@ -248,12 +248,12 @@ void printExportFunctionInfo(char * data, ImageExportDirectory *imageExportDirec
 		printf("函数%d文件偏移量：0x%08x\n", i, offset);
 		funcAddr = funcAddr + 1;
 	}
+	nameAddr = (int *)(data + rva2fileoffset(imageExportDirectory->addressOfNames, sectionHeaders, numberOfSections));
 	for (i = 0; i < imageExportDirectory->numberOfNames; i++)
 	{
-		nameAddr = (int *)(data + rva2fileoffset(imageExportDirectory->addressOfNames, sectionHeaders, numberOfSections));
 		char *name = (data + rva2fileoffset((*nameAddr), sectionHeaders, numberOfSections));
 		printf("函数名：%s\n", name);
-		funcAddr = funcAddr + 1;
+		nameAddr = nameAddr + 1;
 	}
 	printf("\n");
 }
